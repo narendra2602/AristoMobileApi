@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class DespatchResponse {
 
 	private String invNo;
-	private String InvDate;
+	private String invDate;
 	private double billAmount;
 	private String orderNo;
 }

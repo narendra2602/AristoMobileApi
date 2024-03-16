@@ -60,7 +60,7 @@ public class LoginController {
         logger.info(AristoMobileLogMsgConstant.LOGIN_CONTROLLER,"authenticateUser");
 
 
-        ApiResponse<ReportTabResponse> apiResponse = new ApiResponse<>(fname,0,"",loginService.getReportMenuList(loginId));
+        ApiResponse<ReportTabResponse> apiResponse = new ApiResponse<>(0,loginService.getReportMenuList(loginId));
 
 
 		return new ResponseEntity<ApiResponse<ReportTabResponse>>(apiResponse, HttpStatus.OK);

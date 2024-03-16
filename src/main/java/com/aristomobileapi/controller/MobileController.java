@@ -23,6 +23,8 @@ import com.aristomobileapi.response.ApiResponse;
 import com.aristomobileapi.response.DespatchResponse;
 import com.aristomobileapi.response.MobileDespatchResponse;
 import com.aristomobileapi.response.MobileDespatchStockiestResponse;
+import com.aristomobileapi.response.MobilePendingResponse;
+import com.aristomobileapi.response.MobilePendingStockiestResponse;
 import com.aristomobileapi.response.MobileSalesResponse;
 import com.aristomobileapi.response.MobileStockiestResponse;
 import com.aristomobileapi.service.MobileService;
@@ -75,7 +77,22 @@ public class MobileController {
 	
 	}
 
+	@GetMapping("${mrc_pending_div_path}")
+	public ResponseEntity<ApiResponse<MobilePendingResponse>> getPendingDivision(@RequestBody DivisionRequest request,HttpServletRequest req)
+	{
+		
+
+        int loginId=getLoginIdFromToken(req)[0];
+        int uType=getLoginIdFromToken(req)[1];
+
+        request.setLoginId(loginId);
+        request.setUtype(uType);
+        
+        logger.info(AristoMobileLogMsgConstant.MOBILE_DIVISION_CONTROLLER,"getPendingDivision",request.getMyear(),request.getMonth(),loginId,uType);
+		return new ResponseEntity<ApiResponse<MobilePendingResponse>>(mobileService.getPendingDivision(request), HttpStatus.OK);
 	
+	}
+
 	
 	@GetMapping("${mrc_branch_path}")
 	public ResponseEntity<ApiResponse<MobileSalesResponse>> getBranch(@RequestBody BranchRequest request,HttpServletRequest req)
@@ -106,6 +123,21 @@ public class MobileController {
         
         logger.info(AristoMobileLogMsgConstant.MOBILE_BRANCH_CONTROLLER,"getDespatchBranch",request.getMyear(),request.getMonth(),loginId,uType,request.getDivCode());
 		return new ResponseEntity<ApiResponse<MobileDespatchResponse>>(mobileService.getDespatchBranch(request), HttpStatus.OK);
+	
+	}
+	@GetMapping("${mrc_pending_branch_path}")
+	public ResponseEntity<ApiResponse<MobilePendingResponse>> getPendingBranch(@RequestBody BranchRequest request,HttpServletRequest req)
+	{
+		
+
+        int loginId=getLoginIdFromToken(req)[0];
+        int uType=getLoginIdFromToken(req)[1];
+
+        request.setLoginId(loginId);
+        request.setUtype(uType);
+        
+        logger.info(AristoMobileLogMsgConstant.MOBILE_BRANCH_CONTROLLER,"getPendingBranch",request.getMyear(),request.getMonth(),loginId,uType,request.getDivCode());
+		return new ResponseEntity<ApiResponse<MobilePendingResponse>>(mobileService.getPendingBranch(request), HttpStatus.OK);
 	
 	}
 
@@ -141,7 +173,23 @@ public class MobileController {
 		return new ResponseEntity<ApiResponse<MobileDespatchResponse>>(mobileService.getDespatchHq(request), HttpStatus.OK);
 	
 	}
+	@GetMapping("${mrc_pending_hq_path}")
+	public ResponseEntity<ApiResponse<MobilePendingResponse>> getPendingHq(@RequestBody HqRequest request,HttpServletRequest req)
+	{
+		
 
+        int loginId=getLoginIdFromToken(req)[0];
+        int uType=getLoginIdFromToken(req)[1];
+
+        request.setLoginId(loginId);
+        request.setUtype(uType);
+        
+        logger.info(AristoMobileLogMsgConstant.MOBILE_HQ_CONTROLLER,"getPendingHq",request.getMyear(),request.getMonth(),loginId,uType,request.getDivCode(),request.getDepoCode());
+		return new ResponseEntity<ApiResponse<MobilePendingResponse>>(mobileService.getPendingHq(request), HttpStatus.OK);
+	
+	}
+
+	
 	@GetMapping("${mrc_stockiest_path}")
 	public ResponseEntity<ApiResponse<MobileStockiestResponse>> getStockiest(@RequestBody StockiestRequest request,HttpServletRequest req)
 	{
@@ -157,6 +205,15 @@ public class MobileController {
 		
         logger.info(AristoMobileLogMsgConstant.MOBILE_STK_CONTROLLER,"getDespatchStockiest",request.getMyear(),request.getMonth(),request.getDivCode(),request.getDepoCode(),request.getHqCode());
 		return new ResponseEntity<ApiResponse<MobileDespatchStockiestResponse>>(mobileService.getDespatchStockiest(request), HttpStatus.OK);
+	
+	}
+
+	@GetMapping("${mrc_pending_stockiest_path}")
+	public ResponseEntity<ApiResponse<MobilePendingStockiestResponse>> getPendingStockiest(@RequestBody StockiestRequest request,HttpServletRequest req)
+	{
+		
+        logger.info(AristoMobileLogMsgConstant.MOBILE_STK_CONTROLLER,"getPendingStockiest",request.getMyear(),request.getMonth(),request.getDivCode(),request.getDepoCode(),request.getHqCode());
+		return new ResponseEntity<ApiResponse<MobilePendingStockiestResponse>>(mobileService.getPendingStockiest(request), HttpStatus.OK);
 	
 	}
 

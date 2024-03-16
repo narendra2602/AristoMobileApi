@@ -1,26 +1,26 @@
 package com.aristomobileapi.response;
 
-import java.util.List;
+import java.util.Date;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class ApiResponse<T> {
+public class MobilePendingStockiestResponse {
 	
 	
-	private int noOfRecords;
-	private List<T> data;
-	
-	
-
-
+	private String name;
+	private String city;
+	private String piNo;
+	private String   piDate;
+	private String ordNo;
+	private String   ordDate;
+	private double amount;
 
 }

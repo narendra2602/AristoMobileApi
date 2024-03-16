@@ -9,6 +9,8 @@ import com.aristomobileapi.response.ApiResponse;
 import com.aristomobileapi.response.DespatchResponse;
 import com.aristomobileapi.response.MobileDespatchResponse;
 import com.aristomobileapi.response.MobileDespatchStockiestResponse;
+import com.aristomobileapi.response.MobilePendingResponse;
+import com.aristomobileapi.response.MobilePendingStockiestResponse;
 import com.aristomobileapi.response.MobileSalesResponse;
 import com.aristomobileapi.response.MobileStockiestResponse;
 
@@ -24,5 +26,9 @@ public interface MobileService  {
 	ApiResponse<MobileDespatchResponse> getDespatchHq(HqRequest request);
 	ApiResponse<MobileDespatchStockiestResponse> getDespatchStockiest(StockiestRequest request);
 	ApiResponse<DespatchResponse> getDespatchDetail(StockiestDetailRequest request);
-
+	
+	ApiResponse<MobilePendingResponse> getPendingDivision(DivisionRequest request);
+	ApiResponse<MobilePendingResponse> getPendingBranch(BranchRequest request);
+	ApiResponse<MobilePendingResponse> getPendingHq(HqRequest request);
+	ApiResponse<MobilePendingStockiestResponse> getPendingStockiest(StockiestRequest request);
 }

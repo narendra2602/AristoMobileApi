@@ -1,6 +1,5 @@
 package com.aristomobileapi.serviceimpl;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aristomobileapi.constant.AristoMobileLogMsgConstant;
+import com.aristomobileapi.dao.MobilePendingDao;
 import com.aristomobileapi.dao.MobileSalesDao;
 import com.aristomobileapi.dto.Despatch;
+import com.aristomobileapi.dto.PendingBranch;
+import com.aristomobileapi.dto.PendingDivision;
+import com.aristomobileapi.dto.PendingHq;
+import com.aristomobileapi.dto.PendingStockiest;
 import com.aristomobileapi.dto.SalesBranch;
 import com.aristomobileapi.dto.SalesDivision;
 import com.aristomobileapi.dto.SalesHq;
@@ -25,6 +29,8 @@ import com.aristomobileapi.response.ApiResponse;
 import com.aristomobileapi.response.DespatchResponse;
 import com.aristomobileapi.response.MobileDespatchResponse;
 import com.aristomobileapi.response.MobileDespatchStockiestResponse;
+import com.aristomobileapi.response.MobilePendingResponse;
+import com.aristomobileapi.response.MobilePendingStockiestResponse;
 import com.aristomobileapi.response.MobileSalesResponse;
 import com.aristomobileapi.response.MobileStockiestResponse;
 import com.aristomobileapi.service.MobileService;
@@ -37,6 +43,10 @@ public class MobileServiceImpl implements MobileService{
 	
 	@Autowired
 	private MobileSalesDao mobileSalesDao;
+
+	@Autowired
+	private MobilePendingDao mobilePendingDao;
+
 	
 	@Override
 	public ApiResponse<MobileSalesResponse> getDivision(DivisionRequest request) {
@@ -71,7 +81,7 @@ public class MobileServiceImpl implements MobileService{
 		} //end of for loop
 
 		
-		ApiResponse<MobileSalesResponse> apiResponse = new ApiResponse<>(title!=null?title.toString():"", size,saleList);
+		ApiResponse<MobileSalesResponse> apiResponse = new ApiResponse<>(size,saleList);
 		return apiResponse;
 
 	}
@@ -109,7 +119,7 @@ public class MobileServiceImpl implements MobileService{
 		} //end of for loop
 
 		
-		ApiResponse<MobileSalesResponse> apiResponse = new ApiResponse<>(title!=null?title.toString():"", size,saleList);
+		ApiResponse<MobileSalesResponse> apiResponse = new ApiResponse<>(size,saleList);
 		return apiResponse;
 	}
 
@@ -146,7 +156,7 @@ public class MobileServiceImpl implements MobileService{
 		} //end of for loop
 
 		
-		ApiResponse<MobileSalesResponse> apiResponse = new ApiResponse<>(title!=null?title.toString():"", size,saleList);
+		ApiResponse<MobileSalesResponse> apiResponse = new ApiResponse<>(size,saleList);
 		return apiResponse;
 	}
 
@@ -178,7 +188,7 @@ public class MobileServiceImpl implements MobileService{
 		} //end of for loop
 
 		
-		ApiResponse<MobileStockiestResponse> apiResponse = new ApiResponse<>(title!=null?title.toString():"", size,saleList);
+		ApiResponse<MobileStockiestResponse> apiResponse = new ApiResponse<>(size,saleList);
 		return apiResponse;
 	}
 
@@ -207,7 +217,7 @@ public class MobileServiceImpl implements MobileService{
 		} //end of for loop
 
 		
-		ApiResponse<MobileDespatchResponse> apiResponse = new ApiResponse<>(title!=null?title.toString():"", size,saleList);
+		ApiResponse<MobileDespatchResponse> apiResponse = new ApiResponse<>(size,saleList);
 		return apiResponse;
 
 
@@ -215,7 +225,7 @@ public class MobileServiceImpl implements MobileService{
 
 	@Override
 	public ApiResponse<MobileDespatchResponse> getDespatchBranch(BranchRequest request) {
-		logger.info(AristoMobileLogMsgConstant.MOBILE_REPORT_BRANCH,"getBranch");
+		logger.info(AristoMobileLogMsgConstant.MOBILE_REPORT_BRANCH,"getDespatchBranch");
 		List<SalesBranch> BranchList=null;
 		int size = 0;
 		
@@ -238,13 +248,13 @@ public class MobileServiceImpl implements MobileService{
 		} //end of for loop
 
 		
-		ApiResponse<MobileDespatchResponse> apiResponse = new ApiResponse<>(title!=null?title.toString():"", size,saleList);
+		ApiResponse<MobileDespatchResponse> apiResponse = new ApiResponse<>(size,saleList);
 		return apiResponse;
 	}
 
 	@Override
 	public ApiResponse<MobileDespatchResponse> getDespatchHq(HqRequest request) {
-		logger.info(AristoMobileLogMsgConstant.MOBILE_REPORT_HQ,"getHq");
+		logger.info(AristoMobileLogMsgConstant.MOBILE_REPORT_HQ,"getDespatchHq");
 		List<SalesHq> HqList=null;
 		int size = 0;
 		
@@ -267,13 +277,13 @@ public class MobileServiceImpl implements MobileService{
 		} //end of for loop
 
 		
-		ApiResponse<MobileDespatchResponse> apiResponse = new ApiResponse<>(title!=null?title.toString():"", size,saleList);
+		ApiResponse<MobileDespatchResponse> apiResponse = new ApiResponse<>(size,saleList);
 		return apiResponse;
 	}
 
 	@Override
 	public ApiResponse<MobileDespatchStockiestResponse> getDespatchStockiest(StockiestRequest request) {
-		logger.info(AristoMobileLogMsgConstant.MOBILE_REPORT_STK,"getStockiest");
+		logger.info(AristoMobileLogMsgConstant.MOBILE_REPORT_STK,"getDespatchStockiest");
 		List<SalesStockiest> StkList=null;
 		int size = 0;
 		
@@ -297,7 +307,7 @@ public class MobileServiceImpl implements MobileService{
 		} //end of for loop
 
 		
-		ApiResponse<MobileDespatchStockiestResponse> apiResponse = new ApiResponse<>(title!=null?title.toString():"", size,saleList);
+		ApiResponse<MobileDespatchStockiestResponse> apiResponse = new ApiResponse<>(size,saleList);
 		return apiResponse;
 	}
 
@@ -339,10 +349,131 @@ public class MobileServiceImpl implements MobileService{
 		} //end of for loop
 
 		
-		ApiResponse<DespatchResponse> apiResponse = new ApiResponse<>(title!=null?title.toString():"", size,saleList);
+		ApiResponse<DespatchResponse> apiResponse = new ApiResponse<>(size,saleList);
 		return apiResponse;
 
 		
+	}
+
+	@Override
+	public ApiResponse<MobilePendingResponse> getPendingDivision(DivisionRequest request) {
+		logger.info(AristoMobileLogMsgConstant.MOBILE_REPORT_DIVISION,"getPendingDivision");
+		List<PendingDivision> DivisionList=null;
+		int size = 0;
+		
+		DivisionList=mobilePendingDao.getPendingDivision(request.getMyear(),request.getMonth(),request.getLoginId(),request.getUtype());
+
+		size = DivisionList.size();
+		logger.info("size of the data is {}",size);
+
+		MobilePendingResponse response=null;
+		List<MobilePendingResponse> saleList = new ArrayList();
+		String title=null;
+		for (int i=0;i<size;i++)
+		{
+			PendingDivision data = DivisionList.get(i);
+			response=new MobilePendingResponse();
+			response.setDescription(data.getDescription());
+	    	response.setAmount(AppCalculationUtils.valueDivideByLacInDouble(data.getSales()));
+	    	saleList.add(response);
+
+		} //end of for loop
+
+		
+		ApiResponse<MobilePendingResponse> apiResponse = new ApiResponse<>(size,saleList);
+		return apiResponse;
+	}
+
+	@Override
+	public ApiResponse<MobilePendingResponse> getPendingBranch(BranchRequest request) {
+		logger.info(AristoMobileLogMsgConstant.MOBILE_REPORT_BRANCH,"getPendingBranch");
+		List<PendingBranch> BranchList=null;
+		int size = 0;
+		
+		BranchList=mobilePendingDao.getPendingBranch(request.getMyear(),request.getMonth(),request.getLoginId(),request.getUtype(),request.getDivCode());
+
+		size = BranchList.size();
+		logger.info("size of the data is {}",size);
+
+		MobilePendingResponse response=null;
+		List<MobilePendingResponse> saleList = new ArrayList();
+		String title=null;
+		for (int i=0;i<size;i++)
+		{
+			PendingBranch data = BranchList.get(i);
+			response=new MobilePendingResponse();
+			response.setDescription(data.getDescription());
+	    	response.setAmount(AppCalculationUtils.valueDivideByLacInDouble(data.getSales()));
+	    	saleList.add(response);
+
+		} //end of for loop
+
+		
+		ApiResponse<MobilePendingResponse> apiResponse = new ApiResponse<>(size,saleList);
+		return apiResponse;
+	}
+
+	@Override
+	public ApiResponse<MobilePendingResponse> getPendingHq(HqRequest request) {
+		logger.info(AristoMobileLogMsgConstant.MOBILE_REPORT_HQ,"getPendingHq");
+		List<PendingHq> HqList=null;
+		int size = 0;
+		
+		HqList=mobilePendingDao.getPendingHq(request.getMyear(),request.getMonth(),request.getLoginId(),request.getUtype(),request.getDivCode(),request.getDepoCode());
+		
+		size = HqList.size();
+		logger.info("size of the data is {}",size);
+
+		MobilePendingResponse response=null;
+		List<MobilePendingResponse> saleList = new ArrayList();
+		String title=null;
+		for (int i=0;i<size;i++)
+		{
+			PendingHq data = HqList.get(i);
+			response=new MobilePendingResponse();
+			response.setDescription(data.getDescription());
+	    	response.setAmount(data.getSales());
+	    	saleList.add(response);
+
+		} //end of for loop
+
+		
+		ApiResponse<MobilePendingResponse> apiResponse = new ApiResponse<>(size,saleList);
+		return apiResponse;
+	}
+
+	@Override
+	public ApiResponse<MobilePendingStockiestResponse> getPendingStockiest(StockiestRequest request) {
+		logger.info(AristoMobileLogMsgConstant.MOBILE_REPORT_STK,"getDespatchStockiest");
+		List<PendingStockiest> StkList=null;
+		int size = 0;
+		
+		StkList=mobilePendingDao.getPendingStockiest(request.getMyear(),request.getDivCode(),request.getDepoCode(),request.getMonth(),request.getHqCode());
+		
+		size = StkList.size();
+		logger.info("size of the data is {}",size);
+
+		MobilePendingStockiestResponse response=null;
+		List<MobilePendingStockiestResponse> saleList = new ArrayList();
+		String title=null;
+		for (int i=0;i<size;i++)
+		{
+			PendingStockiest data = StkList.get(i);
+			response=new MobilePendingStockiestResponse();
+			response.setName(data.getName());
+			response.setCity(data.getCity());
+			response.setPiNo(data.getPino());
+			response.setPiDate(data.getPidate());
+			response.setOrdNo(data.getOrdno());
+			response.setOrdDate(data.getOrddate());
+	    	response.setAmount(data.getSales());
+	    	saleList.add(response);
+
+		} //end of for loop
+
+		
+		ApiResponse<MobilePendingStockiestResponse> apiResponse = new ApiResponse<>(size,saleList);
+		return apiResponse;
 	}
 
 }
