@@ -13,6 +13,7 @@ public interface SalesHq {
 	public double getCrd();
 	public double getCrd200();
 	public double getBill_amt();
+	public int getEntity_type();
 
 
 }

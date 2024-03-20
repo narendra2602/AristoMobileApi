@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class MobileDespatchStockiestResponse {
 	
+	private String code;
 	private  String name;
 	private  String city;
 	private double billAmount;

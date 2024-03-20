@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class MobileSalesResponse {
 	
+	private int code;
 	private  String description;
 	private double  budget;
 	private double net;
@@ -21,6 +22,7 @@ public class MobileSalesResponse {
 	private double surdef200;
 	private double credit;
 	private double credit200;
+	private int entityType;
 	
 
 }

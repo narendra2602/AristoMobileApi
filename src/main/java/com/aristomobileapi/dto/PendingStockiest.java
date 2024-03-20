@@ -4,6 +4,7 @@ import java.util.Date;
 
 public interface PendingStockiest {
 	
+	public String getCode();
 	public String getName();
 	public String getCity();
 	public String getPino();

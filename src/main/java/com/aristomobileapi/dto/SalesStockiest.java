@@ -1,6 +1,8 @@
 package com.aristomobileapi.dto;
 
 public interface SalesStockiest {
+	
+	public String getCode();
 	public String getName();
 	public String getCity();
 	public double getSales();

@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class MobilePendingStockiestResponse {
 	
-	
+	private String code;
 	private String name;
 	private String city;
 	private String piNo;

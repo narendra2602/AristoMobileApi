@@ -62,10 +62,13 @@ public class MobileServiceImpl implements MobileService{
 		MobileSalesResponse response=null;
 		List<MobileSalesResponse> saleList = new ArrayList();
 		String title=null;
+		if(size==1)
+			size=0;
 		for (int i=0;i<size;i++)
 		{
 			SalesDivision data = DivisionList.get(i);
 			response=new MobileSalesResponse();
+			response.setCode(data.getDiv_Code());
 			response.setDescription(data.getDescription());
 	    	response.setBudget(AppCalculationUtils.valueDivideByLacInDouble(data.getBudget()));
 	    	response.setNet(AppCalculationUtils.valueDivideByLacInDouble(data.getNet()));
@@ -76,6 +79,11 @@ public class MobileServiceImpl implements MobileService{
 	    	response.setSurdef200(AppCalculationUtils.valueDivideByLacInDouble(data.getSur2()));
 	    	response.setCredit(AppCalculationUtils.valueDivideByLacInDouble(data.getCrd()));
 	    	response.setCredit200(AppCalculationUtils.valueDivideByLacInDouble(data.getCrd200()));
+	    	if(data.getDiv_Code()==0)
+	    		response.setEntityType(3);
+	    	else
+	    		response.setEntityType(0);
+
 	    	saleList.add(response);
 
 		} //end of for loop
@@ -100,10 +108,14 @@ public class MobileServiceImpl implements MobileService{
 		MobileSalesResponse response=null;
 		List<MobileSalesResponse> saleList = new ArrayList();
 		String title=null;
+		if(size==1)
+			size=0;
+
 		for (int i=0;i<size;i++)
 		{
 			SalesBranch data = BranchList.get(i);
 			response=new MobileSalesResponse();
+			response.setCode(data.getDepo_Code());
 			response.setDescription(data.getDescription());
 	    	response.setBudget(AppCalculationUtils.valueDivideByLacInDouble(data.getBudget()));
 	    	response.setNet(AppCalculationUtils.valueDivideByLacInDouble(data.getNet()));
@@ -114,6 +126,11 @@ public class MobileServiceImpl implements MobileService{
 	    	response.setSurdef200(AppCalculationUtils.valueDivideByLacInDouble(data.getSur2()));
 	    	response.setCredit(AppCalculationUtils.valueDivideByLacInDouble(data.getCrd()));
 	    	response.setCredit200(AppCalculationUtils.valueDivideByLacInDouble(data.getCrd200()));
+	    	if(data.getDepo_Code()==0)
+	    		response.setEntityType(3);
+	    	else
+	    		response.setEntityType(0);
+	    		
 	    	saleList.add(response);
 
 		} //end of for loop
@@ -137,10 +154,14 @@ public class MobileServiceImpl implements MobileService{
 		MobileSalesResponse response=null;
 		List<MobileSalesResponse> saleList = new ArrayList();
 		String title=null;
+		if(size==1)
+			size=0;
+
 		for (int i=0;i<size;i++)
 		{
 			SalesHq data = HqList.get(i);
 			response=new MobileSalesResponse();
+			response.setCode(data.getCode());
 			response.setDescription(data.getDescription());
 	    	response.setBudget(data.getBudget());
 	    	response.setNet(data.getNet());
@@ -151,6 +172,7 @@ public class MobileServiceImpl implements MobileService{
 	    	response.setSurdef200(data.getSur2());
 	    	response.setCredit(data.getCrd());
 	    	response.setCredit200(data.getCrd200());
+	    	response.setEntityType(data.getEntity_type());
 	    	saleList.add(response);
 
 		} //end of for loop
@@ -174,6 +196,9 @@ public class MobileServiceImpl implements MobileService{
 		MobileStockiestResponse response=null;
 		List<MobileStockiestResponse> saleList = new ArrayList();
 		String title=null;
+		if(size==1)
+			size=0;
+
 		for (int i=0;i<size;i++)
 		{
 			SalesStockiest data = StkList.get(i);
@@ -206,10 +231,14 @@ public class MobileServiceImpl implements MobileService{
 		MobileDespatchResponse response=null;
 		List<MobileDespatchResponse> saleList = new ArrayList();
 		String title=null;
+		if(size==1)
+			size=0;
+
 		for (int i=0;i<size;i++)
 		{
 			SalesDivision data = DivisionList.get(i);
 			response=new MobileDespatchResponse();
+			response.setCode(data.getDiv_Code());
 			response.setDescription(data.getDescription());
 	    	response.setBillAmount(AppCalculationUtils.valueDivideByLacInDouble(data.getBill_amt()));
 	    	saleList.add(response);
@@ -237,10 +266,14 @@ public class MobileServiceImpl implements MobileService{
 		MobileDespatchResponse response=null;
 		List<MobileDespatchResponse> saleList = new ArrayList();
 		String title=null;
+		if(size==1)
+			size=0;
+
 		for (int i=0;i<size;i++)
 		{
 			SalesBranch data = BranchList.get(i);
 			response=new MobileDespatchResponse();
+			response.setCode(data.getDepo_Code());
 			response.setDescription(data.getDescription());
 	    	response.setBillAmount(AppCalculationUtils.valueDivideByLacInDouble(data.getBill_amt()));
 	    	saleList.add(response);
@@ -266,10 +299,14 @@ public class MobileServiceImpl implements MobileService{
 		MobileDespatchResponse response=null;
 		List<MobileDespatchResponse> saleList = new ArrayList();
 		String title=null;
+		if(size==1)
+			size=0;
+
 		for (int i=0;i<size;i++)
 		{
 			SalesHq data = HqList.get(i);
 			response=new MobileDespatchResponse();
+			response.setCode(data.getCode());
 			response.setDescription(data.getDescription());
 	    	response.setBillAmount(data.getBill_amt());
 	    	saleList.add(response);
@@ -295,10 +332,14 @@ public class MobileServiceImpl implements MobileService{
 		MobileDespatchStockiestResponse response=null;
 		List<MobileDespatchStockiestResponse> saleList = new ArrayList();
 		String title=null;
+		if(size==1)
+			size=0;
+
 		for (int i=0;i<size;i++)
 		{
 			SalesStockiest data = StkList.get(i);
 			response=new MobileDespatchStockiestResponse();
+			response.setCode(data.getCode());
 			response.setName(data.getName());
 			response.setCity(data.getCity());
 	    	response.setBillAmount(data.getBill_amt());
@@ -324,6 +365,9 @@ public class MobileServiceImpl implements MobileService{
 		DespatchResponse response=null;
 		List<DespatchResponse> saleList = new ArrayList();
 		String title=null;
+		if(size==1)
+			size=0;
+
 		for (int i=0;i<size;i++)
 		{
 			Despatch data = StkList.get(i);
@@ -369,10 +413,14 @@ public class MobileServiceImpl implements MobileService{
 		MobilePendingResponse response=null;
 		List<MobilePendingResponse> saleList = new ArrayList();
 		String title=null;
+    	if(size==1)
+    		size=0;
+
 		for (int i=0;i<size;i++)
 		{
 			PendingDivision data = DivisionList.get(i);
 			response=new MobilePendingResponse();
+			response.setCode(data.getDiv_code());
 			response.setDescription(data.getDescription());
 	    	response.setAmount(AppCalculationUtils.valueDivideByLacInDouble(data.getSales()));
 	    	saleList.add(response);
@@ -381,7 +429,7 @@ public class MobileServiceImpl implements MobileService{
 
 		
 		ApiResponse<MobilePendingResponse> apiResponse = new ApiResponse<>(size,saleList);
-		return apiResponse;
+			return apiResponse;
 	}
 
 	@Override
@@ -398,13 +446,16 @@ public class MobileServiceImpl implements MobileService{
 		MobilePendingResponse response=null;
 		List<MobilePendingResponse> saleList = new ArrayList();
 		String title=null;
+    	if(size==1)
+    		size=0;
 		for (int i=0;i<size;i++)
 		{
 			PendingBranch data = BranchList.get(i);
 			response=new MobilePendingResponse();
+			response.setCode(data.getDepo_Code());
 			response.setDescription(data.getDescription());
 	    	response.setAmount(AppCalculationUtils.valueDivideByLacInDouble(data.getSales()));
-	    	saleList.add(response);
+    		saleList.add(response);
 
 		} //end of for loop
 
@@ -427,10 +478,13 @@ public class MobileServiceImpl implements MobileService{
 		MobilePendingResponse response=null;
 		List<MobilePendingResponse> saleList = new ArrayList();
 		String title=null;
+    	if(size==1)
+    		size=0;
 		for (int i=0;i<size;i++)
 		{
 			PendingHq data = HqList.get(i);
 			response=new MobilePendingResponse();
+			response.setCode(data.getCode());
 			response.setDescription(data.getDescription());
 	    	response.setAmount(data.getSales());
 	    	saleList.add(response);
@@ -456,10 +510,14 @@ public class MobileServiceImpl implements MobileService{
 		MobilePendingStockiestResponse response=null;
 		List<MobilePendingStockiestResponse> saleList = new ArrayList();
 		String title=null;
+		if(size==1)
+			size=0;
+
 		for (int i=0;i<size;i++)
 		{
 			PendingStockiest data = StkList.get(i);
 			response=new MobilePendingStockiestResponse();
+			response.setCode(data.getCode());
 			response.setName(data.getName());
 			response.setCity(data.getCity());
 			response.setPiNo(data.getPino());

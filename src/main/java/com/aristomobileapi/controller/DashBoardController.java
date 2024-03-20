@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aristomobileapi.constant.AristoMobileLogMsgConstant;
+import com.aristomobileapi.response.ApiResponse;
 import com.aristomobileapi.response.DashBoardChartResponse;
+import com.aristomobileapi.response.DashBoardDataResponse;
 import com.aristomobileapi.service.DashBoardService;
 import com.aristomobileapi.utility.AppRequestParameterUtils;
 
@@ -41,6 +43,31 @@ public class DashBoardController {
 
         logger.info(AristoMobileLogMsgConstant.DASH_BOARD_CONTROLLER,"getDashboardMainChart", myear,mon,uType,loginId);
 		return new ResponseEntity<DashBoardChartResponse>(dashBoardService.getDashboardMainChart(myear,mon,loginId,uType), HttpStatus.OK);
+	
+	}
+
+	@GetMapping("${mrc_dashboardlinechart_path}")
+	public ResponseEntity<DashBoardChartResponse> getDashboardLineChart(@PathVariable("myear") int myear,@PathVariable("mon") int mon,HttpServletRequest request)
+	{
+
+		
+		int loginId=getLoginIdFromToken(request)[0];
+        int uType=getLoginIdFromToken(request)[1];
+
+        logger.info(AristoMobileLogMsgConstant.DASH_BOARD_CONTROLLER,"getDashboardLineChart", myear,mon,uType,loginId);
+		return new ResponseEntity<DashBoardChartResponse>(dashBoardService.getDashboardLineChart(myear,mon,loginId,uType), HttpStatus.OK);
+	
+	}
+
+	
+	
+	@GetMapping("${mrc_dashboardYearCombo_path}")
+	public ResponseEntity<ApiResponse<DashBoardDataResponse>> getDashboardYearCombo()
+	{
+
+//		logger.info(AristoWebLogMsgConstant.DASH_BOARD_CONTROLLER,"getDashboardYearCombo");
+
+		return new ResponseEntity<ApiResponse<DashBoardDataResponse>>(dashBoardService.getDashboardYearCombo(), HttpStatus.OK);
 	
 	}
 
