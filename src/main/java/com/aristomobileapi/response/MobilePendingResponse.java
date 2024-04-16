@@ -14,5 +14,6 @@ public class MobilePendingResponse {
 	private int code;
 	private  String description;
 	private double  amount;
+	private int entityType;
 
 }

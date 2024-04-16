@@ -10,7 +10,9 @@ import com.aristomobileapi.dto.Despatch;
 import com.aristomobileapi.dto.MktDataDto;
 import com.aristomobileapi.dto.SalesBranch;
 import com.aristomobileapi.dto.SalesDivision;
+import com.aristomobileapi.dto.SalesGroup;
 import com.aristomobileapi.dto.SalesHq;
+import com.aristomobileapi.dto.SalesProduct;
 import com.aristomobileapi.dto.SalesStockiest;
 
 public interface MobileSalesDao extends JpaRepository<MktDataDto, Integer> {
@@ -35,5 +37,12 @@ public interface MobileSalesDao extends JpaRepository<MktDataDto, Integer> {
 	List<Despatch> getDespatchDetails(@Param("myear") int myear,@Param("div_code") int div_code,@Param("depo_code") int depo_code
 			,@Param("smon") int smon,@Param("party_code") String  party_code);
 
-	
+	@Query(value="CALL mobileGroupReport(:myear,:div_code,:depo_code,:smon,:hq_code);", nativeQuery=true)
+	List<SalesGroup> getSalesGroup(@Param("myear") int myear,@Param("div_code") int div_code,@Param("depo_code") int depo_code
+			,@Param("smon") int smon,@Param("hq_code") int hq_code);
+
+	@Query(value="CALL mobileProductReport(:myear,:div_code,:depo_code,:smon,:hq_code,:gp_code);", nativeQuery=true)
+	List<SalesProduct> getSalesProduct(@Param("myear") int myear,@Param("div_code") int div_code,@Param("depo_code") int depo_code
+			,@Param("smon") int smon,@Param("hq_code") int hq_code,@Param("gp_code") int gp_code);
+
 }

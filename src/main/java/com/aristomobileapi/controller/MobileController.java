@@ -16,15 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aristomobileapi.constant.AristoMobileLogMsgConstant;
 import com.aristomobileapi.request.BranchRequest;
 import com.aristomobileapi.request.DivisionRequest;
+import com.aristomobileapi.request.GroupRequest;
 import com.aristomobileapi.request.HqRequest;
+import com.aristomobileapi.request.ProductRequest;
 import com.aristomobileapi.request.StockiestDetailRequest;
 import com.aristomobileapi.request.StockiestRequest;
 import com.aristomobileapi.response.ApiResponse;
 import com.aristomobileapi.response.DespatchResponse;
 import com.aristomobileapi.response.MobileDespatchResponse;
 import com.aristomobileapi.response.MobileDespatchStockiestResponse;
+import com.aristomobileapi.response.MobileGroupResponse;
 import com.aristomobileapi.response.MobilePendingResponse;
 import com.aristomobileapi.response.MobilePendingStockiestResponse;
+import com.aristomobileapi.response.MobileProductResponse;
 import com.aristomobileapi.response.MobileSalesResponse;
 import com.aristomobileapi.response.MobileStockiestResponse;
 import com.aristomobileapi.service.MobileService;
@@ -226,6 +230,25 @@ public class MobileController {
 	
 	}
 
+	@GetMapping("${mrc_group_path}")
+	public ResponseEntity<ApiResponse<MobileGroupResponse>> getGroups(@RequestBody GroupRequest request,HttpServletRequest req)
+	{
+		
+        logger.info(AristoMobileLogMsgConstant.MOBILE_GROUP_CONTROLLER,"getGroups",request.getMyear(),request.getMonth(),request.getDivCode(),request.getDepoCode(),request.getHqCode());
+		return new ResponseEntity<ApiResponse<MobileGroupResponse>>(mobileService.getGroups(request), HttpStatus.OK);
+	
+	}
+
+	@GetMapping("${mrc_product_path}")
+	public ResponseEntity<ApiResponse<MobileProductResponse>> getProducts(@RequestBody ProductRequest request,HttpServletRequest req)
+	{
+		
+        logger.info(AristoMobileLogMsgConstant.MOBILE_PRODUCT_CONTROLLER,"getProducts",request.getMyear(),request.getMonth(),request.getDivCode(),request.getDepoCode(),request.getHqCode());
+		return new ResponseEntity<ApiResponse<MobileProductResponse>>(mobileService.getProducts(request), HttpStatus.OK);
+	
+	}
+	
+	
 	
 	   private int[] getLoginIdFromToken(HttpServletRequest request)
 	    {
