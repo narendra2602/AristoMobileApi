@@ -12,12 +12,14 @@ import com.aristomobileapi.constant.AristoMobileLogMsgConstant;
 import com.aristomobileapi.constant.AristoWebMessageConstant;
 import com.aristomobileapi.dao.LoginDao;
 import com.aristomobileapi.dto.LoginDto;
+import com.aristomobileapi.dto.MobileVersion;
 import com.aristomobileapi.dto.ReportMenuDto;
 import com.aristomobileapi.request.LoginRequest;
 import com.aristomobileapi.response.BranchResponse;
 import com.aristomobileapi.response.DataUploadMessageResponse;
 import com.aristomobileapi.response.DivResponse;
 import com.aristomobileapi.response.LoginResponse;
+import com.aristomobileapi.response.MobileVersionResponse;
 import com.aristomobileapi.response.ReportMenuResponse;
 import com.aristomobileapi.response.ReportTabResponse;
 import com.aristomobileapi.service.LoginService;
@@ -128,11 +130,11 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public DataUploadMessageResponse getMessage(int depoCode) {
+	public DataUploadMessageResponse getMessage(int divCode,int depoCode) {
 		
 		logger.info(AristoMobileLogMsgConstant.LOGIN_SERVICE,"getMessage");
 		
-		String message=aristoWebMessageConstant.message+" "+loginDao.getMessage(depoCode);
+		String message=loginDao.getMessage(divCode,depoCode);
 		DataUploadMessageResponse response = new DataUploadMessageResponse();
 		response.setMessage(message);
 		return response;
@@ -192,6 +194,18 @@ public class LoginServiceImpl implements LoginService {
 //		ApiResponse<ReportTabResponse> apiResponse = new ApiResponse<>(fname, reportTabResponseList);
 		return reportTabResponseList;
 
+	}
+
+	@Override
+	public MobileVersionResponse getMobileVersion() {
+		logger.info(AristoMobileLogMsgConstant.LOGIN_SERVICE,"getMobileVersion");
+		
+		MobileVersion vdto=loginDao.getVersion();
+		MobileVersionResponse response = new MobileVersionResponse();
+		response.setCurrentVersion(vdto.getCurrent_version());
+		response.setLastUpdated(vdto.getLast_updated());
+		
+		return response;
 	}
 
 }

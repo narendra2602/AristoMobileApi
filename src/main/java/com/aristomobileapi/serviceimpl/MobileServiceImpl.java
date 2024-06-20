@@ -611,7 +611,7 @@ public class MobileServiceImpl implements MobileService{
 
 	@Override
 	public ApiResponse<MobileProductResponse> getProducts(ProductRequest request) {
-		logger.info(AristoMobileLogMsgConstant.MOBILE_REPORT_GROUP,"getGroups");
+		logger.info(AristoMobileLogMsgConstant.MOBILE_REPORT_GROUP,"getProducts");
 		List<SalesProduct> PrdList=null;
 		int size = 0;
 		
@@ -623,9 +623,9 @@ public class MobileServiceImpl implements MobileService{
 		MobileProductResponse response=null;
 		List<MobileProductResponse> saleList = new ArrayList();
 		String title=null;
-		if(size==1)
+/*		if(size==1)
 			size=0;
-
+*/
 		for (int i=0;i<size;i++)
 		{
 			SalesProduct data = PrdList.get(i);

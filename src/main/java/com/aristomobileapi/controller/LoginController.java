@@ -20,6 +20,7 @@ import com.aristomobileapi.request.LoginRequest;
 import com.aristomobileapi.response.ApiResponse;
 import com.aristomobileapi.response.DataUploadMessageResponse;
 import com.aristomobileapi.response.LoginResponse;
+import com.aristomobileapi.response.MobileVersionResponse;
 import com.aristomobileapi.response.ReportTabResponse;
 import com.aristomobileapi.service.LoginService;
 import com.aristomobileapi.utility.AppRequestParameterUtils;
@@ -69,16 +70,28 @@ public class LoginController {
 	}
 
 	
-	@GetMapping("/loginmessage/{depoCode}")
-	public ResponseEntity<DataUploadMessageResponse> getDataUploadMessage(@PathVariable("depoCode") int depoCode)
+	@GetMapping("/loginmessage/{divCode}/{depoCode}")
+	public ResponseEntity<DataUploadMessageResponse> getDataUploadMessage(@PathVariable("divCode") int divCode,@PathVariable("depoCode") int depoCode)
 	{
 
 		logger.info(AristoMobileLogMsgConstant.LOGIN_CONTROLLER,"getMessage");
 
-		return new ResponseEntity<DataUploadMessageResponse>(loginService.getMessage(depoCode), HttpStatus.OK);
+		return new ResponseEntity<DataUploadMessageResponse>(loginService.getMessage(divCode,depoCode), HttpStatus.OK);
 	
 	}
 
+	@GetMapping("/mobileversion")
+	public ResponseEntity<MobileVersionResponse> getMobileVersion()
+	{
+
+		logger.info(AristoMobileLogMsgConstant.LOGIN_CONTROLLER,"MobileVersionResponse");
+
+		System.out.println("year per aaya kya mobile version mai");
+		return new ResponseEntity<MobileVersionResponse>(loginService.getMobileVersion(), HttpStatus.OK);
+	
+	}
+
+	
      private int getLoginIdFromToken(HttpServletRequest request)
      {
  		String authHeader = request.getHeader("Authorization");
