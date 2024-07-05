@@ -133,9 +133,9 @@ public class DashBoardServiceImpl implements DashBoardService {
 		List<Double> dataValueSale=null;
 		List<DataSetResponse> dataSetResponseList=null;
 		Set<String> chartLabels = null;
+		List<Integer> chartInt=null;
 		int size = chartList.size();
 		boolean first=true;
-
 	for(int i=0; i<size;i++)
 		{
 			dashBoardChart = chartList.get(i);
@@ -145,14 +145,16 @@ public class DashBoardServiceImpl implements DashBoardService {
 				dataValueSale = new ArrayList<Double>();
 				dataSetResponseList = new ArrayList<>();
 				chartLabels = new LinkedHashSet<>();
+				chartInt = new ArrayList<Integer>();
 				first=false;
 			}
           
 			chartLabels.add(dashBoardChart.getMnth());
+			chartInt.add(i+1);
 			dataValueTarget.add(dashBoardChart.getBudget());
 			dataValueSale.add(dashBoardChart.getNet());
 
-                 }
+           }
 
 
 		if(!first)
@@ -174,6 +176,7 @@ public class DashBoardServiceImpl implements DashBoardService {
 			dashBoardChartResponse.setChartType("Line");
 			dashBoardChartResponse.setChartTitle("Target Vs Sales");
 			dashBoardChartResponse.setChartLabels(chartLabels);
+			dashBoardChartResponse.setChartInt(chartInt);
 			dashBoardChartResponse.setDataSet(dataSetResponseList);
 		}
 

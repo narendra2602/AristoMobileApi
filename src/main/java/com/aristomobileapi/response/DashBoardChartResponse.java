@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 public class DashBoardChartResponse {
 	
 	private String chartType;
+	private List<Integer> chartInt;
 	private String chartTitle;
 	private Set<String> chartLabels;
 	private List<DataSetResponse> dataSet;
