@@ -23,6 +23,7 @@ public interface MobileService  {
 	ApiResponse<MobileSalesResponse> getDivision(DivisionRequest request);
 	ApiResponse<MobileSalesResponse> getBranch(BranchRequest request);
 	ApiResponse<MobileSalesResponse> getHq(HqRequest request);
+	ApiResponse<MobileSalesResponse> getSalesProducts(HqRequest request);
 	ApiResponse<MobileStockiestResponse> getStockiest(StockiestRequest request);
 
 	ApiResponse<MobileDespatchResponse> getDespatchDivision(DivisionRequest request);

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aristomobileapi.constant.AristoMobileLogMsgConstant;
 import com.aristomobileapi.response.ApiResponse;
+import com.aristomobileapi.response.CurrentMonthYearResponse;
 import com.aristomobileapi.response.DashBoardChartResponse;
 import com.aristomobileapi.response.DashBoardDataResponse;
 import com.aristomobileapi.service.DashBoardService;
@@ -72,6 +73,17 @@ public class DashBoardController {
 	}
 
 
+	@GetMapping("${mrc_dashboardCurrentMonthYear_path}")
+	public ResponseEntity<CurrentMonthYearResponse> getCurrentMonthYear(HttpServletRequest request)
+	{
+
+		int loginId=getLoginIdFromToken(request)[0];
+        
+		return new ResponseEntity<CurrentMonthYearResponse>(dashBoardService.getCurrentMonthYear(loginId), HttpStatus.OK);
+	
+	}
+
+	
     private int[] getLoginIdFromToken(HttpServletRequest request)
     {
 		String authHeader = request.getHeader("Authorization");

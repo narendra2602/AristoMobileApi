@@ -68,8 +68,8 @@ public class MobileServiceImpl implements MobileService{
 		MobileSalesResponse response=null;
 		List<MobileSalesResponse> saleList = new ArrayList();
 		String title=null;
-		if(size==1)
-			size=0;
+//		if(size==1)
+//			size=0;
 		for (int i=0;i<size;i++)
 		{
 			SalesDivision data = DivisionList.get(i);
@@ -114,8 +114,8 @@ public class MobileServiceImpl implements MobileService{
 		MobileSalesResponse response=null;
 		List<MobileSalesResponse> saleList = new ArrayList();
 		String title=null;
-		if(size==1)
-			size=0;
+//		if(size==1)
+//			size=0;
 
 		for (int i=0;i<size;i++)
 		{
@@ -160,8 +160,8 @@ public class MobileServiceImpl implements MobileService{
 		MobileSalesResponse response=null;
 		List<MobileSalesResponse> saleList = new ArrayList();
 		String title=null;
-		if(size==1)
-			size=0;
+//		if(size==1)
+//			size=0;
 
 		for (int i=0;i<size;i++)
 		{
@@ -188,6 +188,51 @@ public class MobileServiceImpl implements MobileService{
 		return apiResponse;
 	}
 
+	
+	@Override
+	public ApiResponse<MobileSalesResponse> getSalesProducts(HqRequest request) {
+		logger.info(AristoMobileLogMsgConstant.MOBILE_REPORT_HQ,"getProducts");
+		List<SalesHq> HqList=null;
+		int size = 0;
+		
+		HqList=mobileSalesDao.getSaleProductsList(request.getMyear(),request.getMonth(),request.getLoginId(),request.getUtype(),request.getDivCode());
+		
+		size = HqList.size();
+		logger.info("size of the data is {}",size);
+
+		MobileSalesResponse response=null;
+		List<MobileSalesResponse> saleList = new ArrayList();
+		String title=null;
+//		if(size==1)
+//			size=0;
+
+		for (int i=0;i<size;i++)
+		{
+			SalesHq data = HqList.get(i);
+			response=new MobileSalesResponse();
+			response.setCode(data.getCode());
+			response.setDescription(data.getDescription());
+	    	response.setBudget(data.getBudget());
+	    	response.setNet(data.getNet());
+			response.setAch(data.getAch());
+	    	response.setSurdef(data.getSur());
+	    	response.setNet200(data.getNet200());
+			response.setAch200(data.getAch2());
+	    	response.setSurdef200(data.getSur2());
+	    	response.setCredit(data.getCrd());
+	    	response.setCredit200(data.getCrd200());
+	    	saleList.add(response);
+
+		} //end of for loop
+
+		
+		ApiResponse<MobileSalesResponse> apiResponse = new ApiResponse<>(size,saleList);
+		return apiResponse;
+	}
+
+	
+	
+	
 	@Override
 	public ApiResponse<MobileStockiestResponse> getStockiest(StockiestRequest request) {
 		logger.info(AristoMobileLogMsgConstant.MOBILE_REPORT_STK,"getStockiest");
@@ -202,8 +247,8 @@ public class MobileServiceImpl implements MobileService{
 		MobileStockiestResponse response=null;
 		List<MobileStockiestResponse> saleList = new ArrayList();
 		String title=null;
-		if(size==1)
-			size=0;
+//		if(size==1)
+//			size=0;
 
 		for (int i=0;i<size;i++)
 		{
@@ -237,8 +282,8 @@ public class MobileServiceImpl implements MobileService{
 		MobileDespatchResponse response=null;
 		List<MobileDespatchResponse> saleList = new ArrayList();
 		String title=null;
-		if(size==1)
-			size=0;
+//		if(size==1)
+//			size=0;
 
 		for (int i=0;i<size;i++)
 		{
@@ -277,8 +322,8 @@ public class MobileServiceImpl implements MobileService{
 		MobileDespatchResponse response=null;
 		List<MobileDespatchResponse> saleList = new ArrayList();
 		String title=null;
-		if(size==1)
-			size=0;
+//		if(size==1)
+//			size=0;
 
 		for (int i=0;i<size;i++)
 		{
@@ -315,8 +360,8 @@ public class MobileServiceImpl implements MobileService{
 		MobileDespatchResponse response=null;
 		List<MobileDespatchResponse> saleList = new ArrayList();
 		String title=null;
-		if(size==1)
-			size=0;
+//		if(size==1)
+//			size=0;
 
 		for (int i=0;i<size;i++)
 		{
@@ -349,8 +394,8 @@ public class MobileServiceImpl implements MobileService{
 		MobileDespatchStockiestResponse response=null;
 		List<MobileDespatchStockiestResponse> saleList = new ArrayList();
 		String title=null;
-		if(size==1)
-			size=0;
+//		if(size==1)
+//			size=0;
 
 		for (int i=0;i<size;i++)
 		{
@@ -383,8 +428,8 @@ public class MobileServiceImpl implements MobileService{
 		DespatchResponse response=null;
 		List<DespatchResponse> saleList = new ArrayList();
 		String title=null;
-		if(size==1)
-			size=0;
+//		if(size==1)
+//			size=0;
 
 		for (int i=0;i<size;i++)
 		{
@@ -431,8 +476,8 @@ public class MobileServiceImpl implements MobileService{
 		MobilePendingResponse response=null;
 		List<MobilePendingResponse> saleList = new ArrayList();
 		String title=null;
-    	if(size==1)
-    		size=0;
+ //   	if(size==1)
+ //   		size=0;
 
 		for (int i=0;i<size;i++)
 		{
@@ -469,8 +514,8 @@ public class MobileServiceImpl implements MobileService{
 		MobilePendingResponse response=null;
 		List<MobilePendingResponse> saleList = new ArrayList();
 		String title=null;
-    	if(size==1)
-    		size=0;
+//    	if(size==1)
+//    		size=0;
 		for (int i=0;i<size;i++)
 		{
 			PendingBranch data = BranchList.get(i);
@@ -506,8 +551,8 @@ public class MobileServiceImpl implements MobileService{
 		MobilePendingResponse response=null;
 		List<MobilePendingResponse> saleList = new ArrayList();
 		String title=null;
-    	if(size==1)
-    		size=0;
+//    	if(size==1)
+//    		size=0;
 		for (int i=0;i<size;i++)
 		{
 			PendingHq data = HqList.get(i);
@@ -539,8 +584,8 @@ public class MobileServiceImpl implements MobileService{
 		MobilePendingStockiestResponse response=null;
 		List<MobilePendingStockiestResponse> saleList = new ArrayList();
 		String title=null;
-		if(size==1)
-			size=0;
+//		if(size==1)
+//			size=0;
 
 		for (int i=0;i<size;i++)
 		{
@@ -577,8 +622,8 @@ public class MobileServiceImpl implements MobileService{
 		MobileGroupResponse response=null;
 		List<MobileGroupResponse> saleList = new ArrayList();
 		String title=null;
-		if(size==1)
-			size=0;
+//		if(size==1)
+//			size=0;
 
 		for (int i=0;i<size;i++)
 		{

@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 
 import com.aristomobileapi.constant.AristoWebMessageConstant;
 import com.aristomobileapi.dao.DashBoardDao;
+import com.aristomobileapi.dto.CurrentMonthYear;
 import com.aristomobileapi.dto.DashBoardBarChart;
 import com.aristomobileapi.dto.DashBoardData;
 import com.aristomobileapi.dto.DashBoardLineChart;
 import com.aristomobileapi.response.ApiResponse;
+import com.aristomobileapi.response.CurrentMonthYearResponse;
 import com.aristomobileapi.response.DashBoardChartResponse;
 import com.aristomobileapi.response.DashBoardDataResponse;
 import com.aristomobileapi.response.DataSetResponse;
@@ -31,22 +33,38 @@ public class DashBoardServiceImpl implements DashBoardService {
 	@Override
 	public DashBoardChartResponse getDashboardMainChart(int myear, int mon, int login_id, int utype) {
 
-		List<DashBoardBarChart> chartList= dashBoardDao.getDashboardMainChart(myear,mon,login_id,utype);
+		List<DashBoardBarChart> chartList=null;
+		chartList= dashBoardDao.getDashboardMainChart(myear,mon,login_id,utype);
 		
-		DashBoardChartResponse dashBoardChartResponse=null;
+		int size = chartList.size();
+		System.out.println("size is "+size+" mon "+mon);
+/*		if(chartList==null || size==0)
+		{
+			int nmon=mon-1;
+			System.out.println("mnon is "+nmon);
+			if (nmon==0)
+					nmon=12;
+			System.out.println("mnon is "+nmon);
+			chartList= dashBoardDao.getDashboardMainChart(myear,nmon,login_id,utype);
+			System.out.println("size of chartlist is "+chartList.size());
+			
+		}
+		size = chartList.size();
+*/		DashBoardChartResponse dashBoardChartResponse=null;
 		DashBoardBarChart dashBoardChart=null;
 		List<Double> dataValueTarget=null;
 		List<Double> dataValueSale=null;
 		List<DataSetResponse> dataSetResponseList=null;
 		Set<String> chartLabels = null;
-		int size = chartList.size();
+		
 		int srno=0;
 		boolean first=true;
 
 	for(int i=0; i<size;i++)
 		{
 			dashBoardChart = chartList.get(i);
-			if(first){
+			if(first)
+			{
 				dashBoardChartResponse = new DashBoardChartResponse();
 				dataValueTarget = new ArrayList<Double>();
 				dataValueSale = new ArrayList<Double>();
@@ -56,11 +74,12 @@ public class DashBoardServiceImpl implements DashBoardService {
 			}
           
 			//chartLabels.add(dashBoardChart.getDivision());
+			System.out.println("diviosn ki value "+dashBoardChart.getDivision());
 			chartLabels.add(aristoWebMessageConstant.divisionMap.get(dashBoardChart.getDivision()));
 			dataValueTarget.add(dashBoardChart.getBudget());
 			dataValueSale.add(dashBoardChart.getNet());
 
-                 }
+         }
 
 
 		if(!first)
@@ -84,7 +103,38 @@ public class DashBoardServiceImpl implements DashBoardService {
 			dashBoardChartResponse.setChartLabels(chartLabels);
 			dashBoardChartResponse.setDataSet(dataSetResponseList);
 		}
+		else
+		{
+			String  divName=dashBoardDao.getDivision(login_id);
+			
+			DataSetResponse dataSetResponse = new DataSetResponse();
+			dataSetResponseList = new ArrayList<>();
+			dataValueTarget = new ArrayList<Double>();
+			dataValueSale = new ArrayList<Double>();
+			chartLabels = new LinkedHashSet<>();
+			dataValueTarget.add(0.00);
+			dataValueSale.add(0.00);
+			chartLabels.add(divName);
+			
+			dataSetResponse.setValues(dataValueTarget);
+			dataSetResponse.setDatasetLabel("Target");
+			dataSetResponse.setDataSetColor(aristoWebMessageConstant.target);
+			dataSetResponseList.add(dataSetResponse);
 
+
+			dataSetResponse = new DataSetResponse();
+			dataSetResponse.setValues(dataValueSale);
+			dataSetResponse.setDatasetLabel("Sale");
+			dataSetResponse.setDataSetColor(aristoWebMessageConstant.sale);
+			dataSetResponseList.add(dataSetResponse);
+
+			dashBoardChartResponse = new DashBoardChartResponse();
+			dashBoardChartResponse.setChartType("bar");
+			dashBoardChartResponse.setChartTitle("Target Vs Sales");
+			dashBoardChartResponse.setChartLabels(chartLabels);
+			dashBoardChartResponse.setDataSet(dataSetResponseList);
+			
+		}
 		return dashBoardChartResponse;
 	}
 
@@ -181,6 +231,16 @@ public class DashBoardServiceImpl implements DashBoardService {
 		}
 
 		return dashBoardChartResponse;
+	}
+
+	@Override
+	public CurrentMonthYearResponse getCurrentMonthYear(int loginId) {
+		CurrentMonthYear dataList= dashBoardDao.getcurrentmonthyear(loginId);
+		
+		CurrentMonthYearResponse res = new CurrentMonthYearResponse();
+		res.setCurrentYear(dataList.getCurrent_year());
+		res.setCurrentMonth(dataList.getCurrent_month());
+		return res;
 	}
 
 	

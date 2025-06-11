@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.aristomobileapi.dto.CurrentMonthYear;
 import com.aristomobileapi.dto.DashBoardBarChart;
 import com.aristomobileapi.dto.DashBoardData;
 import com.aristomobileapi.dto.DashBoardLineChart;
@@ -26,4 +27,11 @@ public interface DashBoardDao extends JpaRepository<MktDataDto, Integer> {
 	List<DashBoardLineChart> getDashboardLineChart(@Param("myear") int myear,@Param("mon") int mon,
 	@Param("login_id") int login_id,@Param("utype") int utype);
 
+	@Query(value = "select d.div_name from divmast d where d.div_code=(select div_code from userdiv u where user_id=:login_id)", nativeQuery = true)
+	String  getDivision(@Param("login_id") int login_id);
+
+	
+	@Query(value="CALL getcurrentmonthyear(:loginId);", nativeQuery=true)
+	CurrentMonthYear getcurrentmonthyear(@Param("loginId") int loginId);
+	
 }

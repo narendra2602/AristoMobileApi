@@ -162,6 +162,23 @@ public class MobileController {
 	
 	}
 	
+	@GetMapping("${mrc_item_path}")
+	public ResponseEntity<ApiResponse<MobileSalesResponse>> getSalesProducts(@RequestBody HqRequest request,HttpServletRequest req)
+	{
+		
+
+        int loginId=getLoginIdFromToken(req)[0];
+        int uType=getLoginIdFromToken(req)[1];
+
+        request.setLoginId(loginId);
+        request.setUtype(uType);
+        
+        logger.info(AristoMobileLogMsgConstant.MOBILE_HQ_CONTROLLER,"getSalesProducts",request.getMyear(),request.getMonth(),loginId,uType,request.getDivCode(),request.getDepoCode());
+		return new ResponseEntity<ApiResponse<MobileSalesResponse>>(mobileService.getSalesProducts(request), HttpStatus.OK);
+	
+	}
+
+	
 	@GetMapping("${mrc_despatch_hq_path}")
 	public ResponseEntity<ApiResponse<MobileDespatchResponse>> getDespatchHq(@RequestBody HqRequest request,HttpServletRequest req)
 	{

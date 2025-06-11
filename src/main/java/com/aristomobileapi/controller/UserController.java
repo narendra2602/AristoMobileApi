@@ -112,6 +112,7 @@ public class UserController {
     public ResponseEntity<?> authenticateAndGetToken(@RequestBody LoginRequest authRequest) { 
     	System.out.println(authRequest.getUsername());
     	System.out.println(authRequest.getPassword());
+    	boolean passwordStatus = authRequest.getPassword().equals("123")?false:true;
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())); 
         
          
@@ -120,7 +121,7 @@ public class UserController {
         
        // if (authentication.isAuthenticated()) { 
             String token =  jwtService.generateToken(authRequest.getUsername(),userDetails.getLoginId(),userDetails.getUserType(),userDetails.getFname());
-            return new ResponseEntity<TokenResponse>(new TokenResponse(token),HttpStatus.OK);
+            return new ResponseEntity<TokenResponse>(new TokenResponse(token,passwordStatus),HttpStatus.OK);
             //return ResponseEntity.ok(new AuthenticationResponse(token));
         //} else { 
           //  throw new UsernameNotFoundException("invalid user request !"); 
