@@ -14,6 +14,7 @@ import com.aristomobileapi.dao.LoginDao;
 import com.aristomobileapi.dto.LoginDto;
 import com.aristomobileapi.dto.MobileVersion;
 import com.aristomobileapi.dto.ReportMenuDto;
+import com.aristomobileapi.dto.VersionDto;
 import com.aristomobileapi.request.LoginRequest;
 import com.aristomobileapi.response.BranchResponse;
 import com.aristomobileapi.response.DataUploadMessageResponse;
@@ -22,6 +23,7 @@ import com.aristomobileapi.response.LoginResponse;
 import com.aristomobileapi.response.MobileVersionResponse;
 import com.aristomobileapi.response.ReportMenuResponse;
 import com.aristomobileapi.response.ReportTabResponse;
+import com.aristomobileapi.response.VersionResponse;
 import com.aristomobileapi.service.LoginService;
 
 @Service
@@ -208,4 +210,22 @@ public class LoginServiceImpl implements LoginService {
 		return response;
 	}
 
+	
+	@Override
+	public VersionResponse getVersionStatus() {
+
+		logger.info(AristoMobileLogMsgConstant.LOGIN_SERVICE,"getVersionStatus");
+		
+		
+		VersionDto vdto=loginDao.getVersionStatus();
+		VersionResponse response = new VersionResponse();
+		response.setUploadStatus(vdto.getUpload_status());
+		if(vdto.getUpload_status().equalsIgnoreCase("Y"))
+			response.setMsg(vdto.getMsg());
+		else
+			response.setMsg("");
+		
+		return response;
+	}
+	
 }

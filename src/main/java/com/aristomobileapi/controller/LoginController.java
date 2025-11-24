@@ -22,6 +22,7 @@ import com.aristomobileapi.response.DataUploadMessageResponse;
 import com.aristomobileapi.response.LoginResponse;
 import com.aristomobileapi.response.MobileVersionResponse;
 import com.aristomobileapi.response.ReportTabResponse;
+import com.aristomobileapi.response.VersionResponse;
 import com.aristomobileapi.service.LoginService;
 import com.aristomobileapi.utility.AppRequestParameterUtils;
 
@@ -90,6 +91,17 @@ public class LoginController {
 		return new ResponseEntity<MobileVersionResponse>(loginService.getMobileVersion(), HttpStatus.OK);
 	
 	}
+
+	   @GetMapping("/uploadstatus")
+		public ResponseEntity<VersionResponse> getVersionStatus()
+		{
+
+		   logger.info(AristoMobileLogMsgConstant.LOGIN_CONTROLLER,"getVersionStatus");
+
+			
+			return new ResponseEntity<VersionResponse>(loginService.getVersionStatus(), HttpStatus.OK);
+		
+		}
 
 	
      private int getLoginIdFromToken(HttpServletRequest request)

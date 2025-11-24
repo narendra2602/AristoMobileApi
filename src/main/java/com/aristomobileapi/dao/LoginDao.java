@@ -10,6 +10,7 @@ import com.aristomobileapi.dto.LoginDto;
 import com.aristomobileapi.dto.MktDataDto;
 import com.aristomobileapi.dto.MobileVersion;
 import com.aristomobileapi.dto.ReportMenuDto;
+import com.aristomobileapi.dto.VersionDto;
 
 public interface LoginDao extends JpaRepository<MktDataDto, Integer> {
 	
@@ -28,5 +29,8 @@ public interface LoginDao extends JpaRepository<MktDataDto, Integer> {
 
 	@Query(value = "Select current_version,last_updated from aristo_web.mobile_version ", nativeQuery = true)
 	MobileVersion getVersion();
+	
+	@Query(value = "Select upload_status,msg from aristo_web.mobile_version ", nativeQuery = true)
+	VersionDto getVersionStatus();
 
 }

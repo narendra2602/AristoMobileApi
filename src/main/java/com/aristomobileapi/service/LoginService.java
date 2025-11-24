@@ -7,6 +7,7 @@ import com.aristomobileapi.response.DataUploadMessageResponse;
 import com.aristomobileapi.response.LoginResponse;
 import com.aristomobileapi.response.MobileVersionResponse;
 import com.aristomobileapi.response.ReportTabResponse;
+import com.aristomobileapi.response.VersionResponse;
 
 public interface LoginService {
 	
@@ -18,6 +19,6 @@ public interface LoginService {
 	
 	List<ReportTabResponse> getReportMenuList(int loginId);
 
-
+	VersionResponse getVersionStatus();
 	
 }
