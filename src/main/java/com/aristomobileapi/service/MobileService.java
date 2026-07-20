@@ -24,6 +24,7 @@ public interface MobileService  {
 	ApiResponse<MobileSalesResponse> getBranch(BranchRequest request);
 	ApiResponse<MobileSalesResponse> getHq(HqRequest request);
 	ApiResponse<MobileSalesResponse> getSalesProducts(HqRequest request);
+	ApiResponse<MobileSalesResponse> getSalesProductsBranchwise(HqRequest request);
 	ApiResponse<MobileStockiestResponse> getStockiest(StockiestRequest request);
 
 	ApiResponse<MobileDespatchResponse> getDespatchDivision(DivisionRequest request);

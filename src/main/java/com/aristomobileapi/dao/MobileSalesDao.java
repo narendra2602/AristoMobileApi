@@ -34,6 +34,11 @@ public interface MobileSalesDao extends JpaRepository<MktDataDto, Integer> {
 	List<SalesHq> getSaleProductsList(@Param("myear") int myear,	@Param("smon") int smon,@Param("login_id") int login_id,
 			@Param("utype") int utype,@Param("div_code") int div_code);
 
+	@Query(value="CALL mobileproductrep_branch(:myear,:smon,:login_id,:utype,:div_code,:grp_code);", nativeQuery=true)
+	List<SalesHq> getSaleProductsListBranch(@Param("myear") int myear,	@Param("smon") int smon,@Param("login_id") int login_id,
+			@Param("utype") int utype,@Param("div_code") int div_code,@Param("grp_code") int grp_code);
+
+	
 	
 	@Query(value="CALL mobileReportGetSalesStockiest(:myear,:div_code,:depo_code,:smon,:hq_code);", nativeQuery=true)
 	List<SalesStockiest> getSalesStockiest(@Param("myear") int myear,@Param("div_code") int div_code,@Param("depo_code") int depo_code

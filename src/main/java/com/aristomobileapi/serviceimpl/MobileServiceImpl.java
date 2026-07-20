@@ -230,7 +230,47 @@ public class MobileServiceImpl implements MobileService{
 		return apiResponse;
 	}
 
-	
+	@Override
+	public ApiResponse<MobileSalesResponse> getSalesProductsBranchwise(HqRequest request) {
+		logger.info(AristoMobileLogMsgConstant.MOBILE_REPORT_HQ,"getProducts");
+		List<SalesHq> HqList=null;
+		int size = 0;
+		
+		HqList=mobileSalesDao.getSaleProductsListBranch(request.getMyear(),request.getMonth(),request.getLoginId(),request.getUtype(),request.getDivCode(),request.getDepoCode());
+		
+		size = HqList.size();
+		logger.info("size of the data is {}",size);
+
+		MobileSalesResponse response=null;
+		List<MobileSalesResponse> saleList = new ArrayList();
+		String title=null;
+//		if(size==1)
+//			size=0;
+
+		for (int i=0;i<size;i++)
+		{
+			SalesHq data = HqList.get(i);
+			response=new MobileSalesResponse();
+			response.setCode(data.getCode());
+			response.setDescription(data.getDescription());
+	    	response.setBudget(data.getBudget());
+	    	response.setNet(data.getNet());
+			response.setAch(data.getAch());
+	    	response.setSurdef(data.getSur());
+	    	response.setNet200(data.getNet200());
+			response.setAch200(data.getAch2());
+	    	response.setSurdef200(data.getSur2());
+	    	response.setCredit(data.getCrd());
+	    	response.setCredit200(data.getCrd200());
+	    	saleList.add(response);
+
+		} //end of for loop
+
+		
+		ApiResponse<MobileSalesResponse> apiResponse = new ApiResponse<>(size,saleList);
+		return apiResponse;
+	}
+
 	
 	
 	@Override
@@ -716,5 +756,6 @@ public class MobileServiceImpl implements MobileService{
 		ApiResponse<MobileProductResponse> apiResponse = new ApiResponse<>(size,saleList);
 		return apiResponse;
 	}
+
 
 }
